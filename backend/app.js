@@ -1,11 +1,29 @@
 const express = require("express");
 const collection = require("./mongo");
+const mongoose = require('mongoose');
 const cors = require("cors");
 const bcrypt = require("bcrypt"); // Import bcrypt
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+
+// Connect to MongoDB
+mongoose.connect('mongodb://127.0.0.1:27017/foodAppDB', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+const contactRouter = require('./contactRouter');
+
+// Middleware - Use CORS for all routes
+app.use(cors());
+
+// Parse incoming JSON data
+app.use(express.json());
+
+// Mount the contactRouter for '/api/contact' route
+app.use('/api/contact', contactRouter);
 
 app.post("/", async (req, res) => {
   const { email, password } = req.body;
@@ -49,5 +67,5 @@ app.post("/signup", async (req, res) => {
 });
 
 app.listen(5000, () => {
-  console.log("port connected");
+  console.log("Server is running on http://localhost:5000");
 });
