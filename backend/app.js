@@ -1,8 +1,8 @@
 const express = require("express");
-const collection = require("./mongo");
+const collection = require("./models/userSchema");
 const mongoose = require('mongoose');
 const cors = require("cors");
-const bcrypt = require("bcrypt"); // Import bcrypt
+const bcrypt = require("bcrypt");
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
