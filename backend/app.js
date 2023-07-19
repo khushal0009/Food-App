@@ -41,7 +41,7 @@ app.post("/signup", async (req, res) => {
         password: hashedPassword, // Store the hashed password
       };
       await collection.insertMany([data]);
-      res.json("User created successfully");
+      res.json("Not exists");
     }
   } catch (e) {
     console.log(e);
