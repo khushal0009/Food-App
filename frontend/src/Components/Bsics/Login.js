@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import './login.css';
 function Login() {
-  const history = useNavigate();
+  const navigate = useNavigate(); // Use useNavigate hook for navigation
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -11,15 +11,19 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://127.0.0.1:5000/", {
+      const response = await axios.post("http://localhost:5000/login", {
         email,
         password,
       });
 
-      if (response.data === "exists") {
-        history("/home", { state: { id: email } });
-      } else if (response.data === "Notexist") {
-        alert("User Not SignedUp");
+      if (response.data === "User exists") {
+        navigate("/");
+      } else if (response.data === "User not found") {
+        alert("Please Signup first!");
+        navigate("/signup"); 
+      } else if (response.data === "Invalid credentials") {
+        alert("Incorrect password.");
+        setPassword("");
       }
     } catch (e) {
       alert("Wrong details");
