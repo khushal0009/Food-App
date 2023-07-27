@@ -1,12 +1,5 @@
-const mongoose=require("mongoose");
-mongoose.connect("mongodb://127.0.0.1:27017")
-.then(()=>{
-    console.log("MongoDB Connected");
-})
-.catch(()=>{
-    console.log("failed");
-})
-
+// planModel.js
+const mongoose = require("mongoose");
 
 const planSchema = new mongoose.Schema({
   name: {
@@ -32,7 +25,7 @@ const planSchema = new mongoose.Schema({
       function () {
         return this.discount < 100;
       },
-      "dicount should not exceed price",
+      "discount should not exceed price",
     ],
   },
 });
